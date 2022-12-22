@@ -32,19 +32,16 @@ def max_2_sum arr
 end
 
 def sum_to_n? arr, n
-  count = 0
-  arr.each do |item|
-    if item > n
-      count += 1
+  hash = Hash.new(0)
+  arr.each do|item|
+    if hash.key? item
+      return true
+    else
+      hash[n-item] = item
     end
   end
-  if count >= 2
-    return true
-  else
-    return false
-  end
+  return false
 end
-
 
 # Part 2
 
@@ -63,31 +60,24 @@ end
 def binary_multiple_of_4? s
   if s % 4 == 0
     return true
- else
-  return false
- end
+  else
+    return false
+  end
 end
-
 # Part 3
 
-rescue => exception
-end
 class BookInStock
-  def def initialize(isbn, price)
+  attr_reader :isbn
+  attr_accessor :price
+  def initialize(isbn, price)
     @isbn = isbn
-    @price = price
+    @price = Float(price)
+    raise ArgumentError.new("ISBN is empty...fill it") unless isbn.length > 0
+    raise ArgumentError.new("Price cannot be less than or equal to zero") unless price > 0
   end
-
-  isbn
+  def price_as_string
+    temp = sprintf("%2f", price)
+    temp.insert(0, "$")
+    temp
+  end
 end
-
-
-array = [1, 2, 3, 4, 5, 6, 7, 8]
-array1 = [1, 1, 2, 2]
-#puts sum(array)
-
-#puts binary_multiple_of_4? 999
-#puts max_2_sum(array)
-#puts starts_with_consonant?("aHEllo")
-puts sum_to_n?(array1, 2)
-#puts array
