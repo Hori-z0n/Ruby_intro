@@ -46,7 +46,7 @@ end
 # Part 2
 
 def hello(name)
-  reutrn "Hello " + name
+  return "Hello, " + name
 end
 
 def starts_with_consonant? s
@@ -76,8 +76,13 @@ class BookInStock
     raise ArgumentError.new("Price cannot be less than or equal to zero") unless price > 0
   end
   def price_as_string
-    temp = sprintf("%2f", price)
+    temp = sprintf("%.2f", price)
     temp.insert(0, "$")
     temp
   end
 end
+
+array = [1, 2, 3, 4, 5]
+sum = max_2_sum(array)
+puts sum
+puts sum_to_n?([-1, -2, 3, 4, 5, -8], -3)
