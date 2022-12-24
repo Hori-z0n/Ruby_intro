@@ -4,7 +4,7 @@
 
 def sum(arr)
   total = 0
-  if arr == 0
+  if arr.empty?
     return 0
   else
     arr.each do|item|
@@ -15,32 +15,19 @@ def sum(arr)
 end
 
 def max_2_sum arr
-  temp1 = 0
-  temp2 = 0
-  arr.each do |item|
-    if item > temp1
-      temp1 = item
-    end
-  end
-  arr.delete(temp1)
-  arr.each do |item|
-    if item > temp2
-      temp2 = item
-    end
-  end
-  return temp1 + temp2
+  arr.empty? ? 0: arr.sort.last(2).reduce(:+)
 end
 
 def sum_to_n? arr, n
-  hash = Hash.new(0)
-  arr.each do|item|
-    if hash.key? item
-      return true
-    else
-      hash[n-item] = item
+  arr.each do |i|
+    arr.inject(i) do |num1,num2|
+      if num1 + num2 == n
+        return true
+      else
+        return false
+      end
     end
   end
-  return false
 end
 
 # Part 2
@@ -50,20 +37,23 @@ def hello(name)
 end
 
 def starts_with_consonant? s
-  if s[0] == 'a'
+  s = s.downcase
+  if s.start_with?('a') or s.start_with?('e') or s.start_with?('i') or s.start_with?('o') or s.start_with?('u')
     return true
   else
     return false
   end
 end
 
-def binary_multiple_of_4? s
-  if s % 4 == 0
+def binary_multiple_of_4? s# 8 4 2 1
+  if s[-1]==0 and s[-2]==0
+#  if s % 4 == 0
     return true
   else
     return false
   end
 end
+
 # Part 3
 
 class BookInStock
@@ -81,8 +71,3 @@ class BookInStock
     temp
   end
 end
-
-array = [1, 2, 3, 4, 5]
-sum = max_2_sum(array)
-puts sum
-puts sum_to_n?([-1, -2, 3, 4, 5, -8], -3)
